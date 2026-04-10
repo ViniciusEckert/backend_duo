@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Personagens{
+  id Int @id @default(autoincrement())
+  nome String
+  primeiraAp String?
+  idade String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  desenho Desenho[]
+}
+
+model Desenho{
+  id Int @id @default(autoincrement())
+  nome String?
+  lançamento String
+  temporadas Int
+  status Boolean
+  genero String
+  CreateAt DateTime @default(now())
+  updateIn  DateTime @updatedAt
+  personagem Personagens []
+}
+
+model User{
+  id Int @id @default(autoincrement())
+  nome String
+  email String @unique
+  senha String
+  admin Boolean @default(false)
+}
